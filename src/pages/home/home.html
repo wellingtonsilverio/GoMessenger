@@ -1,14 +1,33 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<div padding>
+  <ion-segment [(ngModel)]="mode">
+    <ion-segment-button value="global">
+      Todos Jogadores
+    </ion-segment-button>
+    <ion-segment-button value="team">
+      Instinct
+    </ion-segment-button>
+  </ion-segment>
+</div>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
-</ion-content>
+<div [ngSwitch]="mode">
+  <ion-list *ngSwitchCase="'global'">
+    <div padding *ngIf="messages">
+      <div class="message" *ngFor="let message of messages | async" [class.you]="message.user==user">
+        <div class="user">{{ message.user }}</div>
+        <div class="text">{{ message.text }}</div>
+      </div>
+    </div>
+    <ion-footer>
+      <ion-item>
+        <ion-input [(ngModel)]="input.message" name="message" placeholder="Digite a mensagem" ></ion-input>
+        <button ion-button large clear (click)="sendMessage()" item-end>
+          <ion-icon name="md-send"></ion-icon>
+        </button>
+      </ion-item>
+    </ion-footer>
+  </ion-list>
+
+  <ion-list *ngSwitchCase="team">
+    
+  </ion-list>
+</div>

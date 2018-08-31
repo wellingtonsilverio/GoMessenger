@@ -10,6 +10,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
+
+import firebase from 'firebase';
 
 var configFirebase = {
   apiKey: "AIzaSyD4nP6veuwaNNTqihkxp9UUJDOMD6ITdtc",
@@ -20,10 +23,13 @@ var configFirebase = {
   messagingSenderId: "341954695291"
 };
 
+firebase.initializeApp(configFirebase);
+
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +41,8 @@ var configFirebase = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   providers: [
     StatusBar,

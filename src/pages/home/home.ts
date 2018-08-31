@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
@@ -19,11 +19,12 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    public db: AngularFireDatabase
+    public db: AngularFireDatabase,
+    private toastCtrl: ToastController
   ) {
     this.mode = 'global';
 
-    this.user = 'Wellington';
+    this.user = localStorage.getItem('user');
 
     this.messages = this.db.list('/chats').valueChanges();
   }
@@ -33,7 +34,12 @@ export class HomePage {
       user: this.user,
       text: this.input.message
     }).then( () => {
-      //success
+      let toast = this.toastCtrl.create({
+        message: 'Mensagem enviada',
+        duration: 3000,
+        position: 'top'
+      });
+      toast.present();
     });
     this.input.message = "";
   }
